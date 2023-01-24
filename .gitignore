@@ -3,6 +3,7 @@
 /CTRPFData.bin
 *.3gx
 *.lnk
+*.lst
 .env
 
 libctrpf/lib

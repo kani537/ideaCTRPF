@@ -31,10 +31,10 @@ class MenuItem {
   virtual ~MenuItem() = default;
 
   MenuItem(MenuType type)
-      : Uid(++_uidCounter),
-        _type(type),
-        _container(nullptr),
-        _index(0)
+    : Uid(++_uidCounter),
+      _type(type),
+      _container(nullptr),
+      _index(0)
   {
     Flags.useSeparatorBefore = false;
     Flags.useSeparatorAfter = false;

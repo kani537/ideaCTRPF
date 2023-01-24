@@ -23,11 +23,11 @@ enum class ActionType {
 class MenuFolderImpl;
 class MenuFolder {
  public:
-  MenuFolder(const std::string &name, const std::string &note = "");
-  MenuFolder(const std::string &name,
-             const std::vector<MenuEntry *> &entries);
-  MenuFolder(const std::string &name, const std::string &note,
-             const std::vector<MenuEntry *> &entries);
+  MenuFolder(const std::string& name, const std::string& note = "");
+  MenuFolder(const std::string& name,
+             const std::vector<MenuEntry*>& entries);
+  MenuFolder(const std::string& name, const std::string& note,
+             const std::vector<MenuEntry*>& entries);
 
   /**
    * \brief Destroy a MenuFolder.\n
@@ -60,33 +60,36 @@ class MenuFolder {
   void UseBottomSeparator(Separator type = Separator::Filled) const;
 
   // Append a MenuEntry or MenuFolder object to this folder
-  void Append(MenuEntry *item) const;
-  void Append(MenuFolder *item) const;
+  void Append(MenuEntry* item) const;
+  void Append(MenuFolder* item) const;
+
+  bool Contains(MenuEntry const* item) const;
+  bool Contains(MenuFolder const* item) const;
 
   /**
    * \brief Get all entries present in this folder (doesn't contain
-   * subfolder's) \return A std::vector with pointers to all MenuEntry
-   * objects
+   * subfolder's) \return A std::vector with pointers to all
+   * MenuEntry objects
    */
-  std::vector<MenuEntry *> GetEntryList(void) const;
+  std::vector<MenuEntry*> GetEntryList(void) const;
 
   /**
    * \brief Get all folders present in this folder (doesn't contain
    * subfolder's) \return A std::vector with pointers to all MenuEntry
    * objects
    */
-  std::vector<MenuFolder *> GetFolderList(void) const;
+  std::vector<MenuFolder*> GetFolderList(void) const;
 
   /**
    * \brief Get a reference of the string that hold the name of this
    * folder \return A reference of the std::string
    */
-  std::string &Name(void) const;
+  std::string& Name(void) const;
   /**
    * \brief Get a reference of the string that hold the note of this
    * folder \return A reference of the std::string
    */
-  std::string &Note(void) const;
+  std::string& Note(void) const;
 
   /**
    * \brief Get the number of items that his folder contains (not
@@ -114,28 +117,28 @@ class MenuFolder {
    * \param entry The MenuEntry object that must be added
    * \return A pointer to this MenuFolder
    */
-  MenuFolder *operator+=(const MenuEntry *entry);
+  MenuFolder* operator+=(const MenuEntry* entry);
 
   /**
    * \brief Remove an entry from this folder
    * \param entry The MenuEntry object that must be removed
    * \return A pointer to this MenuFolder
    */
-  MenuFolder *operator-=(const MenuEntry *entry);
+  MenuFolder* operator-=(const MenuEntry* entry);
 
   /**
    * \brief Add a (sub)folder to this folder
    * \param folder The MenuFolder object that must added
    * \return A pointer to this MenuFolder
    */
-  MenuFolder *operator+=(const MenuFolder *folder);
+  MenuFolder* operator+=(const MenuFolder* folder);
 
   /**
    * \brief Remove a (sub)folder to this folder
    * \param folder The MenuFolder object that must be removed
    * \return A pointer to this MenuFolder
    */
-  MenuFolder *operator-=(const MenuFolder *folder);
+  MenuFolder* operator-=(const MenuFolder* folder);
 
   /**
    * \brief Callback type, receive the object that called the callback
@@ -143,7 +146,7 @@ class MenuFolder {
    * Whether the folder can be opened (on ActionType::Opening only,
    * ignored for ActionType::Closing)
    */
-  using MenuFolder_OnActionFunc = bool (*)(MenuFolder &, ActionType);
+  using MenuFolder_OnActionFunc = bool (*)(MenuFolder&, ActionType);
 
   /**
    * \brief This callback is called when the folder is about to be

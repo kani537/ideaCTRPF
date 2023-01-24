@@ -3,28 +3,28 @@
 
 namespace CTRPluginFramework {
 
-MenuFolder::MenuFolder(const std::string &name,
-                       const std::string &note)
+MenuFolder::MenuFolder(const std::string& name,
+                       const std::string& note)
   : OnAction{nullptr},
     _item(new MenuFolderImpl(this, name, note))
 {
 }
 
-MenuFolder::MenuFolder(const std::string &name,
-                       const std::vector<MenuEntry *> &entries)
+MenuFolder::MenuFolder(const std::string& name,
+                       const std::vector<MenuEntry*>& entries)
   : OnAction{nullptr},
     _item(new MenuFolderImpl(this, name))
 {
-  for (MenuEntry *entry : entries) Append(entry);
+  for (MenuEntry* entry : entries) Append(entry);
 }
 
-MenuFolder::MenuFolder(const std::string &name,
-                       const std::string &note,
-                       const std::vector<MenuEntry *> &entries)
+MenuFolder::MenuFolder(const std::string& name,
+                       const std::string& note,
+                       const std::vector<MenuEntry*>& entries)
   : OnAction{nullptr},
     _item(new MenuFolderImpl(this, name, note))
 {
-  for (MenuEntry *entry : entries) Append(entry);
+  for (MenuEntry* entry : entries) Append(entry);
 }
 
 MenuFolder::~MenuFolder()
@@ -58,36 +58,72 @@ void MenuFolder::UseBottomSeparator(Separator type) const
   _item->Flags.useStippledLineForBefore = type == Separator::Stippled;
 }
 
-void MenuFolder::Append(MenuEntry *item) const
+void MenuFolder::Append(MenuEntry* item) const
 {
-  MenuEntryImpl *entry = item->_item.get();
+  MenuEntryImpl* entry = item->_item.get();
 
   _item->Append(entry);
 }
 
-void MenuFolder::Append(MenuFolder *item) const
+void MenuFolder::Append(MenuFolder* item) const
 {
-  MenuFolderImpl *folder = item->_item.get();
+  MenuFolderImpl* folder = item->_item.get();
+
+  if (item->Contains(this)) {
+    return;
+  }
 
   _item->Append(folder);
 }
 
-std::vector<MenuEntry *> MenuFolder::GetEntryList(void) const
+bool MenuFolder::Contains(MenuEntry const* item) const
+{
+  auto&& entries = this->GetEntryList();
+
+  for (auto&& e : entries)
+    if (e == item)
+      return true;
+
+  auto&& folders = this->GetFolderList();
+
+  for (auto&& f : folders)
+    if (f->Contains(item))
+      return true;
+
+  return false;
+}
+
+bool MenuFolder::Contains(MenuFolder const* item) const
+{
+  auto&& folders = this->GetFolderList();
+
+  for (auto&& f : folders)
+    if (f == item)
+      return true;
+
+  for (auto&& f : folders)
+    if (f->Contains(item))
+      return true;
+
+  return false;
+}
+
+std::vector<MenuEntry*> MenuFolder::GetEntryList(void) const
 {
   return (_item->GetEntryList());
 }
 
-std::vector<MenuFolder *> MenuFolder::GetFolderList(void) const
+std::vector<MenuFolder*> MenuFolder::GetFolderList(void) const
 {
   return (_item->GetFolderList());
 }
 
-std::string &MenuFolder::Name(void) const
+std::string& MenuFolder::Name(void) const
 {
   return (_item->name);
 }
 
-std::string &MenuFolder::Note(void) const
+std::string& MenuFolder::Note(void) const
 {
   return (_item->note);
 }
@@ -107,30 +143,30 @@ void MenuFolder::Remove(u32 startIndex, u32 count, bool destroy) const
   _item->Remove(startIndex, count, destroy);
 }
 
-MenuFolder *MenuFolder::operator+=(const MenuEntry *item)
+MenuFolder* MenuFolder::operator+=(const MenuEntry* item)
 {
-  MenuEntryImpl *entry = item->_item.get();
+  MenuEntryImpl* entry = item->_item.get();
 
   _item->Append(entry);
 
   return (this);
 }
 
-MenuFolder *MenuFolder::operator-=(const MenuEntry *entry)
+MenuFolder* MenuFolder::operator-=(const MenuEntry* entry)
 {
   _item->Remove(entry->_item.get());
   return (this);
 }
 
-MenuFolder *MenuFolder::operator+=(const MenuFolder *folder)
+MenuFolder* MenuFolder::operator+=(const MenuFolder* folder)
 {
-  MenuFolderImpl *f = folder->_item.get();
+  MenuFolderImpl* f = folder->_item.get();
 
   _item->Append(f);
   return (this);
 }
 
-MenuFolder *MenuFolder::operator-=(const MenuFolder *folder)
+MenuFolder* MenuFolder::operator-=(const MenuFolder* folder)
 {
   _item->Remove(folder->_item.get());
   return (this);

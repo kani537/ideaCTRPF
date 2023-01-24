@@ -9,6 +9,8 @@ namespace CTRPluginFramework
     Color bg;
     Clock time;
   };
-  bool OSDJP(const Screen &screen);
+
+  // bool OSDJP(const Screen &screen);
+
   bool OSDJPNotify(const std::string &str, const Color &foreground = Color::White, const Color &background = Color::Black);
 }

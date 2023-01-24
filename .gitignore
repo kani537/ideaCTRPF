@@ -4,3 +4,6 @@
 *.3gx
 *.lnk
 .env
+
+libctrpf/lib
+libctrpf/debug

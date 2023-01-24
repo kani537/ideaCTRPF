@@ -133,7 +133,7 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 .PHONY: clean all
 
 #---------------------------------------------------------------------------------
-all: lib/libctrpf.a lib/libctrpfd.a
+all: lib/libctrpf.a
 
 dist-bin: all
 	@tar --exclude=*~ -cjf libctrpf-$(CTRPF_REVISION).tar.bz2 include/CTRPluginFramework include/CTRPluginFramework.hpp lib

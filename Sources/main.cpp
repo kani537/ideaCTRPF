@@ -248,6 +248,17 @@ namespace CTRPluginFramework
     menu += new MenuEntry("ColorPicker", nullptr, ColorPicker, "カラーピッカー");
     menu += EntryWithHotkeys(new MenuEntry("Tetris", nullptr, Tetris, "テトリス\n一回Hotkeys Modifierを見に行ってください\n操作できません\nMenuFunc(キーボードのボタン)から設定を変えれます"), {Hotkey(Key::DPadLeft, "左"), Hotkey(Key::DPadRight, "右"), Hotkey(Key::DPadDown, "下"), Hotkey(Key::DPadUp, "ハードドロップ"), Hotkey(Key::A, "右回転"), Hotkey(Key::B, "左回転"), Hotkey(Key::R, "ホールド"), Hotkey(Key::Y, "Pause")});
     menu += new MenuEntry("Paint", nullptr, Paint, "ペイント");
+
+
+    auto fol1 = new MenuFolder("fol1");
+    auto fol2 = new MenuFolder("fol2");
+    auto fol3 = new MenuFolder("fol3");
+
+    fol1->Append(fol2);
+    fol2->Append(fol3);
+    fol3->Append(fol1);
+
+    menu += fol1;
   }
 
   int main(void)

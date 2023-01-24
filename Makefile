@@ -66,6 +66,7 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L $(dir)/lib)
 all: $(BUILD)
 
 $(BUILD):
+	@$(MAKE) -C $(CTRPFLIB) -f $(CTRPFLIB)/Makefile
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 

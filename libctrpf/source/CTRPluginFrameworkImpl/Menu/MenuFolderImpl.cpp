@@ -54,8 +54,8 @@ namespace CTRPluginFramework
             item->_container = this;
             item->_index = _items.size();
         }
-        _items.push_back(item);
 
+        _items.push_back(item);
     }
 
     u32    MenuFolderImpl::ItemsCount(void) const

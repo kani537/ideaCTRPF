@@ -28,7 +28,7 @@ CFLAGS		:=	$(ARCH) -Os -mword-relocations \
 
 CFLAGS		+=	$(INCLUDE) -D__3DS__
 
-CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11 -Wno-psabi
+CXXFLAGS	:= $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++20 -Wno-psabi
 
 ASFLAGS		:=	$(ARCH)
 LDFLAGS		:= -T $(TOPDIR)/3gx.ld $(ARCH) -Os -Wl,--gc-sections,--strip-discarded,--strip-debug

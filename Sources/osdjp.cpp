@@ -16,7 +16,7 @@ static bool OSDJP_CallBack(const Screen& screen)
 
     if (notify.time.GetElapsedTime() <= Seconds(5)) {
       int width = OSD::GetTextWidth(true, notify.name);
-      int dx = 380 - widt;
+      int dx = 380 - width;
       int dy = 220 - ((i << 4) + (i << 2));
 
       // background

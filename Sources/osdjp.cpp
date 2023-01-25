@@ -3,7 +3,7 @@
 static constexpr auto notify_list_elements_max = 12;
 
 namespace CTRPluginFramework {
-static std::vector<Sys_OSD> OSDJPlist;
+static std::vector<SysOSDNotify> OSDJPlist;
 
 static bool OSDJP_CallBack(const Screen& screen)
 {
@@ -12,16 +12,22 @@ static bool OSDJP_CallBack(const Screen& screen)
     return false;
 
   for (size_t i = 0; i < OSDJPlist.size();) {
-    if (OSDJPlist[i].time.GetElapsedTime() <= Seconds(5)) {
-      int width = OSD::GetTextWidth(true, OSDJPlist[i].name);
+    auto& notify = OSDJPlist[i];
 
-      screen.DrawRect(380 - (width + 2), 220 - (i * 20), width + 4,
-                      16 + 2, Color(OSDJPlist[i].bg.ToU32()));
-      screen.DrawSysfont(OSDJPlist[i].name, 380 - width,
-                         220 - (i * 20),
-                         Color(OSDJPlist[i].fg.ToU32()));
+    if (notify.time.GetElapsedTime() <= Seconds(5)) {
+      int width = OSD::GetTextWidth(true, notify.name);
+      int dx = 380 - widt;
+      int dy = 220 - ((i << 4) + (i << 2));
 
-      if (++i == 12)
+      // background
+      screen.DrawRect(dx, dy, width + 4, 16 + 2,
+                      Color(notify.bg.ToU32()));
+
+      // text
+      screen.DrawSysfont(notify.name, dx, dy,
+                         Color(notify.fg.ToU32()));
+
+      if (++i == notify_list_elements_max)
         break;
     }
     else {

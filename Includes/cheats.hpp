@@ -24,9 +24,8 @@ namespace CTRPluginFramework
   void Command(MenuEntry *entry);
   void ColorPicker(MenuEntry *entry);
 
-  class Tetris_Class
-  {
-  public:
+  class Tetris_Class {
+   public:
     void Tetris_Loop(HotkeyManager Hotkeys);
 
     void SetLevel(u8 level)

@@ -146,7 +146,7 @@ namespace CTRPluginFramework
     };
   };
   void Tetris(MenuEntry *entry);
-  void Paint(MenuEntry *entry);
+  void PaintMenu(MenuEntry *entry);
 
   class LifeGame_Class
   {
